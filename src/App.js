@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux'
+import { fetchHistoryItems } from './actions'
+import './App.css'
+import ItemList from './components/ItemList'
 
 class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(fetchHistoryItems())
+  }
+
   render() {
+    const { items, isFetching } = this.props
+    const isEmpty = items.length === 0
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {isEmpty
+          ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
+          : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+              <ItemList items={items} />
+            </div>
+        }
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  const { history, isFetching } = state
+
+  return {
+    items: history.items,
+    isFetching
+  }
+}
+
+export default connect(mapStateToProps)(App)
