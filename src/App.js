@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchHistoryItems } from './actions'
 import './App.css'
-import ItemList from './components/ItemList'
+import History from './components/History'
 
 class App extends Component {
   componentDidMount() {
@@ -19,7 +19,7 @@ class App extends Component {
         {isEmpty
           ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
           : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              <ItemList items={items} />
+              <History items={items} />
             </div>
         }
       </div>
