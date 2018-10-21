@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fetchHistoryItems } from './actions'
-import './App.css'
-import History from './components/History'
+import { fetchHistoryItems } from '../actions'
+import History from '../components/History'
 
 class App extends Component {
   componentDidMount() {

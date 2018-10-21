@@ -11,8 +11,24 @@ configure({adapter: new Adapter()});
 
 describe('<History />', () => {
     it('should render <VerticalBarSeries /> element', () => {
-        const wrapper = shallow(<History />);
-        wrapper.setProps({items: []});
+        const store = {
+            getState: () => {
+                return {
+                    history: {
+                        isFetching: false,
+                        items: [
+                            {
+                                "score": 4583,
+                                "date": 1538410833
+                            }
+                        ]
+                    }       
+                }
+            },
+            subscribe: jest.fn(),
+            dispatch: jest.fn()
+        };
+        const wrapper = shallow(<History store={store} />).dive();
         expect(wrapper.find(VerticalBarSeries)).toHaveLength(1);
     });
 });

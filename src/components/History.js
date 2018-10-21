@@ -23,12 +23,12 @@ const History = (props) => {
       return {x: i + 1, y};
     });
     const labelData = data.map((el, i) => {
-      return {x: i + 1, y: 0, label: el.score, style: {fontSize: 10}};
+      return {x: i + 1, y: 0, label: `${el.score}`, style: {fontSize: 10}};
     });
     
     return (
       <div>
-        <h2>Your progress</h2>
+        <h3>Your progress</h3>
         <h5>Your progress in the different categories</h5>
         <XYPlot width={500} height={500} stackBy="y">
           <VerticalGridLines />
