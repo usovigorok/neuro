@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import '../../node_modules/react-vis/dist/style.css';
 import {
   XYPlot,
@@ -10,7 +11,8 @@ import {
   LabelSeries
 } from 'react-vis';
 
-const History = ({ items }) => {
+const History = (props) => {
+    const { items } = props
     const max = items.reduce((acc, val) => {
         acc = ( acc === undefined || val.score > acc ) ? val.score : acc
         return acc;
@@ -40,4 +42,12 @@ const History = ({ items }) => {
     );
 }
 
-export default History
+const mapStateToProps = state => {
+  const { history } = state
+
+  return {
+    items: history.items,
+  }
+}
+
+export default connect(mapStateToProps)(History)
