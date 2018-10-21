@@ -17,13 +17,14 @@ const History = (props) => {
         acc = ( acc === undefined || val.score > acc ) ? val.score : acc
         return acc;
     }, []);
-    const data = items.sort(function(a, b){return a.date - b.date});
+    const data = items.sort(function(a, b){return a.date - b.date}).slice(0, 12);
     const barData = data.map((el, i) => {
       const y = el.score * 100 / max;
       return {x: i + 1, y};
     });
     const labelData = data.map((el, i) => {
-      return {x: i + 1, y: 0, label: `${el.score}`, style: {fontSize: 10}};
+      const xOffset = i < 6 ? -10 : 10;
+      return {x: i + 1, y: 0, label: `${el.score}`, xOffset, style: {fontSize: 10}};
     });
     
     return (
